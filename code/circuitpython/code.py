@@ -22,7 +22,7 @@ class LinearActuator:
     def __init__(self):
         self.angle = 0.0
         self.direction = True
-        self.step_increment = .05 # How much to move, in degrees, with each step
+        self.step_increment = .05 # How much to move, in radians, with each step
         self.running = 1
         self.output_off()
 
@@ -79,9 +79,9 @@ class LinearActuator:
         print("Angle: %f, Degrees: %s" % (self.angle, degrees))
 
         # Calculate phase values
-        phase_a = math.sin(self.angle)
-        phase_b = math.sin(self.angle + PHASE_ANGLE)
-        phase_c = math.sin(self.angle + (PHASE_ANGLE * 2))
+        phase_a = math.cos(self.angle)
+        phase_b = math.cos(self.angle - PHASE_ANGLE)
+        phase_c = math.cos(self.angle + PHASE_ANGLE)
 
         # Apply to H-bridges
         self.apply_phase(pwm_ah, pwm_al, phase_a)
